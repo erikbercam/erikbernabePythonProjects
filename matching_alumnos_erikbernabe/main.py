@@ -1,0 +1,56 @@
+import csv
+import os
+
+# --- 1. Definir nombres de archivos ---
+file_uf1 = 'Notas_Alumnos_UF1.csv'
+file_uf2 = 'Notas_Alumnos_UF2.csv'
+file_output = 'notas_alumnos.csv'
+
+# --- 2. Leer Notas_Alumnos_UF1.csv usando DictReader ---
+datos_alumnos = {}
+
+try:
+    # ---- CORRECCIÓN AQUÍ ----
+    # Cambiamos encoding='utf-8' por 'latin-1' para leer
+    with open(file_uf1, mode='r', encoding='latin-1') as f:
+        reader_uf1 = csv.DictReader(f, delimiter=';')
+
+        for fila in reader_uf1:
+            datos_alumnos[fila['Id']] = fila
+
+    # --- 3. Leer Notas_Alumnos_UF2.csv y combinar los datos ---
+
+    # ---- CORRECCIÓN AQUÍ ----
+    # Cambiamos encoding='utf-8' por 'latin-1' también aquí
+    with open(file_uf2, mode='r', encoding='latin-1') as f:
+        reader_uf2 = csv.DictReader(f, delimiter=';')
+
+        for fila in reader_uf2:
+            alumno_id = fila['Id']
+            if alumno_id in datos_alumnos:
+                datos_alumnos[alumno_id]['UF2'] = fila['UF2']
+            else:
+                print(f"Advertencia: Alumno con Id {alumno_id} no encontrado en {file_uf1}")
+
+    # --- 4. Escribir el nuevo fichero notas_alumnos.csv usando DictWriter ---
+
+    fieldnames = ['Id', 'Apellidos', 'Nombre', 'UF1', 'UF2']
+
+    # ---- SIN CAMBIOS AQUÍ ----
+    # Al escribir, mantenemos 'utf-8'. Es buena práctica.
+    with open(file_output, mode='w', encoding='utf-8', newline='') as f:
+
+        writer = csv.DictWriter(f, fieldnames=fieldnames, delimiter=';')
+
+        writer.writeheader()
+
+        writer.writerows(datos_alumnos.values())
+
+    print(f"¡Éxito! Se ha creado el archivo '{file_output}' correctamente.")
+    print(f"Se procesaron {len(datos_alumnos)} alumnos.")
+
+except FileNotFoundError as e:
+    print(f"Error: No se encontró el archivo {e.filename}.")
+except Exception as e:
+    # Esto imprimirá el error de forma más clara si vuelve a pasar
+    print(f"Ha ocurrido un error inesperado: {type(e).__name__} - {e}")
