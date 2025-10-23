@@ -1,0 +1,13 @@
+# Entorno virtual
+.venv/
+venv/
+
+# Archivos de PyCharm
+.idea/
+
+# Archivos generados (como tu CSV)
+*.csv
+
+# Caché de Python
+__pycache__/
+*.pyc
