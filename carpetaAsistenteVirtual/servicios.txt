@@ -1,0 +1,17 @@
+Bienvenido a Erik Bernabe's Barber			
+
+Servicios disponibles:
+Corte de cabello: $15
+Tinte basico: $35
+Tinte premium: $60
+Peinado: $3
+Lavado y secado: $5
+Tratamiento capilar: $50
+Completo (afeitado + recorte): $22
+
+Horario de atencion:
+Lunes a Viernes: 9:00 AM - 5:00 PM
+Sabado: 9:00 AM - 2:00 PM
+Domingo: cerrado
+
+Reservaaa, que estamos a full estas semanaaas!
