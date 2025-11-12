@@ -5,7 +5,6 @@ import os
 from dotenv import load_dotenv # type: ignore
 from pathlib import Path 
 
-
 script_dir = Path(__file__).parent 
 
 env_path = script_dir / '.env'
@@ -21,7 +20,6 @@ if not api_key:
     print(f"Intento carga env desde: {env_path}")
     exit()
 
-
 genai.configure(api_key=api_key)
 
 try:
@@ -30,7 +28,6 @@ try:
 except FileNotFoundError:
     print("Error: Servicios no encontrado.")
     exit()
-
 
 prompt_base = f"""
 Eres un asistente virtual para la Erik Bernabe's Barber.
@@ -44,7 +41,6 @@ que no tienes esa informacion. No inventes precios ni horarios.
 Se amable y conciso.
 """
 
-
 model = genai.GenerativeModel('models/gemini-flash-latest')
 chat = model.start_chat(history=[
  
@@ -52,24 +48,17 @@ chat = model.start_chat(history=[
     {'role': 'model', 'parts': ["Hablas con el asistente de Erik Bernabe's Barber, en que puedo ayudarte?"]}
 ])
 
-
-
-
 def enviar_pregunta():
  
     pregunta = entrada_usuario.get()
     
     if not pregunta:
         return
-
-
+        
     area_chat.config(state=tk.NORMAL)
     area_chat.insert(tk.END, f"Tu: {pregunta}\n\n")
     area_chat.see(tk.END) 
-    
- 
     entrada_usuario.delete(0, tk.END)
-    
     boton_enviar.config(state=tk.DISABLED)
 
     try:
@@ -92,32 +81,19 @@ root = tk.Tk()
 root.title("Asistente de Erik Bernabe's Barber")
 root.geometry("500x600")
 
-
 main_frame = tk.Frame(root, padx=10, pady=10)
 main_frame.pack(fill=tk.BOTH, expand=True)
 
-
 titulo = tk.Label(main_frame, text="Erik Bernabe's Barber", font=("Arial", 16, "bold"))
-# 1. Anclamos el título ARRIBA
+
 titulo.pack(side=tk.TOP, pady=5)
 
-
-# --- INICIO DE LA CORRECCIÓN ---
-# Movemos la definición del frame_entrada aquí
-
-# 2. Anclamos el frame de entrada ABAJO (side=tk.BOTTOM)
-#    Lo empaquetamos ANTES que el chat.
 frame_entrada = tk.Frame(main_frame)
 frame_entrada.pack(side=tk.BOTTOM, fill=tk.X, pady=(10, 0)) # fill=tk.X para que llene el ancho
 
-# 3. El área de chat ahora rellena el espacio que queda en medio
 area_chat = scrolledtext.ScrolledText(main_frame, wrap=tk.WORD, state=tk.DISABLED, font=("Arial", 15))
 area_chat.pack(fill=tk.BOTH, expand=True, pady=(10, 0)) # pady=(10,0) para que no pegue con el frame_entrada
 
-# --- FIN DE LA CORRECCIÓN ---
-
-
-# Ahora definimos el contenido del frame_entrada (esto no cambia)
 entrada_usuario = tk.Entry(frame_entrada, font=("Arial", 12), width=35)
 entrada_usuario.pack(side=tk.LEFT, fill=tk.X, expand=True, ipady=8, padx=(0, 10))
 
@@ -125,7 +101,6 @@ boton_enviar = tk.Button(frame_entrada, text="Enviar", command=enviar_pregunta, 
 boton_enviar.pack(side=tk.RIGHT, ipady=5, ipadx=10)
 
 
-# Configuración final del chat
 area_chat.config(state=tk.NORMAL)
 area_chat.insert(tk.END, "24/7 a tu disposicion, en que podemos ayudarte?\n\n")
 area_chat.config(state=tk.DISABLED)
